@@ -54,6 +54,9 @@ function App() {
           getDisabilities(),
         ]);
 
+        console.log('Municipalities loaded:', municipalities);
+        console.log('Departments loaded:', departments);
+
         setLists({
           departments,
           processTypes,

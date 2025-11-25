@@ -29,7 +29,7 @@ const Filters = ({ onSearch, lists }) => {
 
     // Filter municipalities based on selected department if possible
     const filteredMunicipalities = filters.departamento
-        ? lists.municipalities.filter((m) => m.departamento?.id === filters.departamento || m.departamentoId === filters.departamento)
+        ? lists.municipalities.filter((m) => m.departamentoId === parseInt(filters.departamento))
         : lists.municipalities;
 
     return (

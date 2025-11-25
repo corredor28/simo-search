@@ -48,16 +48,7 @@ export const getEntidades = () => fetchList('/entidades/opecVisible/list/');
 
 export const getDepartments = () => fetchList('/departamento/');
 
-export const getMunicipalities = (deptId) => {
-    if (!deptId) return fetchList('/municipio/');
-    // Usually APIs filter by department ID if passed, but the URL provided is just /municipio/
-    // We might need to filter client-side or check if the API accepts a param.
-    // Based on common patterns, it might be /municipio/list?departamentoId=... or similar.
-    // But the user gave: https://simo.cnsc.gov.co/municipio/
-    // Let's assume it returns all or we filter client side if needed.
-    // Actually, let's try to fetch all.
-    return fetchList('/municipio/');
-};
+export const getMunicipalities = () => fetchList('/municipio/');
 
 export const getLevels = () => fetchList('/gradosNivel/list/');
 
