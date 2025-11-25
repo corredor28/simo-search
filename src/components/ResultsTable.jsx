@@ -65,11 +65,11 @@ const ResultsTable = ({ data, filters, lists }) => {
             <table>
                 <thead>
                     <tr>
-                        <th onClick={() => requestSort('empleo.id')}>ID</th>
+                        <th onClick={() => requestSort('empleo.id')}>No OPEC</th>
                         <th onClick={() => requestSort('empleo.asignacionSalarial')}>Salario</th>
                         <th onClick={() => requestSort('empleo.codigoEmpleo')}>Código</th>
                         <th onClick={() => requestSort('empleo.denominacion.nombre')}>Denominación</th>
-                        <th onClick={() => requestSort('empleo.nivelNombre')}>Nivel</th>
+                        <th onClick={() => requestSort('nivelNombre')}>Nivel</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
                         <th onClick={() => requestSort('empleo.descripcion')}>Descripción</th>
@@ -90,7 +90,7 @@ const ResultsTable = ({ data, filters, lists }) => {
                                 <td>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(emp.asignacionSalarial)}</td>
                                 <td>{emp.codigoEmpleo}</td>
                                 <td>{denom}</td>
-                                <td>{emp.nivelNombre}</td>
+                                <td>{item.nivelNombre}</td>
                                 <td>{dept}</td>
                                 <td>{muni}</td>
                                 <td className="description-cell" title={emp.descripcion}>{emp.descripcion}</td>

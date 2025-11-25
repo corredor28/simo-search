@@ -31,6 +31,13 @@ export const searchJobs = async (filters, page = 0, size = 1000) => {
         size: size,
     };
 
+    if (filters.salario) {
+        var salaries = await getSalaryRanges();
+        var salary = salaries.find((s) => s.id === parseInt(filters.salario));
+        params.search_limiteInferior = salary.limiteInferior;
+        params.search_limiteSuperior = salary.limiteSuperior;
+    }
+
     try {
         const response = await api.get('', { params });
         return response.data;
