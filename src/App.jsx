@@ -54,7 +54,7 @@ function App() {
           getDisabilities(),
         ]);
 
-        console.log('levels loaded:', levels);
+        //console.log('levels loaded:', levels);
 
         setLists({
           departments,

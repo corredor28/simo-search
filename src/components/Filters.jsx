@@ -56,7 +56,7 @@ const Filters = ({ onSearch, lists }) => {
                 >
                     <option value="">Todos</option>
                     {lists.processTypes.map((type) => (
-                        <option key={type.id} value={type.id}>
+                        <option key={type.id} value={type.codigoLargo}>
                             {type.nombre}
                         </option>
                     ))}
