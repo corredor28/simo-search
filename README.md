@@ -51,4 +51,16 @@ Developed in collaboration with **Antigravity**, an advanced AI coding assistant
 
 This is an unofficial viewer and is not affiliated with, endorsed by, or connected to the CNSC (Comisión Nacional del Servicio Civil) or the SIMO platform. It is intended for educational and personal use only.
 
+
+## Deploy
+
+This project is configured for deployment on **Vercel**.
+
+1. Push this code to a GitHub repository.
+2. Log in to [Vercel](https://vercel.com) and click "Add New Project".
+3. Import your GitHub repository.
+4. Vercel will automatically detect the Vite configuration. Click "Deploy".
+
+The `vercel.json` file handles the proxying to the SIMO API, so no extra configuration is needed.
+
 Made with love in Bogotá, Colombia.

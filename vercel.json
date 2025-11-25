@@ -1,0 +1,36 @@
+{
+    "rewrites": [
+        {
+            "source": "/empleos/:path*",
+            "destination": "https://simo.cnsc.gov.co/empleos/:path*"
+        },
+        {
+            "source": "/tipoprocesoseleccion/:path*",
+            "destination": "https://simo.cnsc.gov.co/tipoprocesoseleccion/:path*"
+        },
+        {
+            "source": "/convocatorias/:path*",
+            "destination": "https://simo.cnsc.gov.co/convocatorias/:path*"
+        },
+        {
+            "source": "/entidades/:path*",
+            "destination": "https://simo.cnsc.gov.co/entidades/:path*"
+        },
+        {
+            "source": "/departamento/:path*",
+            "destination": "https://simo.cnsc.gov.co/departamento/:path*"
+        },
+        {
+            "source": "/municipio/:path*",
+            "destination": "https://simo.cnsc.gov.co/municipio/:path*"
+        },
+        {
+            "source": "/niveles/:path*",
+            "destination": "https://simo.cnsc.gov.co/niveles/:path*"
+        },
+        {
+            "source": "/tipodiscapacidad/:path*",
+            "destination": "https://simo.cnsc.gov.co/tipodiscapacidad/:path*"
+        }
+    ]
+}
