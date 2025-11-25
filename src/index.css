@@ -238,7 +238,8 @@ tr:hover {
 }
 
 .clickable-row.expanded {
-  background-color: #eff6ff; /* Light blue background for active row */
+  background-color: #eff6ff;
+  /* Light blue background for active row */
   border-left: 4px solid var(--primary-color);
 }
 
@@ -247,9 +248,9 @@ tr:hover {
 }
 
 .details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   padding: 1.5rem;
 }
 

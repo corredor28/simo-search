@@ -80,6 +80,8 @@ const ResultsTable = ({ data, filters, lists }) => {
                         <th onClick={() => requestSort('empleo.nivelNombre')}>Nivel</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
+                        <th onClick={() => requestSort('empleo.convocatoria.nombre')}>Convocatoria</th>
+                        <th onClick={() => requestSort('empleo.fechaInscripcion')}>Cierre de inscripciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,10 +103,12 @@ const ResultsTable = ({ data, filters, lists }) => {
                                     <td>{item.nivelNombre}</td>
                                     <td>{dept}</td>
                                     <td>{muni}</td>
+                                    <td>{emp.convocatoria.nombre}</td>
+                                    <td>{item.fechaInscripcion}</td>
                                 </tr>
                                 {isExpanded && (
                                     <tr className="expanded-row-content">
-                                        <td colSpan="6">
+                                        <td colSpan="8">
                                             <div className="details-grid">
                                                 <div className="detail-item">
                                                     <strong>Descripción:</strong>
