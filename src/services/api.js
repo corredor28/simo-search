@@ -32,7 +32,7 @@ export const searchJobs = async (filters, page = 0, size = 1000) => {
     };
 
     try {
-        const response = await api.get('/', { params });
+        const response = await api.get('', { params });
         return response.data;
     } catch (error) {
         console.error('Error fetching jobs:', error);
