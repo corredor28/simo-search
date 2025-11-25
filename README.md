@@ -1,16 +1,54 @@
-# React + Vite
+# SIMO Search - Unofficial Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, premium React application designed to query and visualize job offers from the [SIMO](https://simo.cnsc.gov.co/) (Sistema de apoyo para la Igualdad, el Mérito y la Oportunidad) platform in Colombia.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Advanced Filtering**: Search by keyword, process type, entity, department, municipality, level, salary range, and OPEC number.
+- **Smart Location Logic**: Automatically displays the relevant vacancy location based on your search filters.
+- **Premium UI**: Built with a modern, responsive design using glassmorphism and smooth transitions.
+- **Sortable Results**: Easily sort job offers by salary, ID, code, and more.
+- **Real-time Data**: Connects directly to the SIMO public API (via proxy).
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: React, Vite
+- **Styling**: Vanilla CSS (Premium Design System)
+- **HTTP Client**: Axios
 
-## Expanding the ESLint configuration
+## 📦 Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/yourusername/simo-search.git
+    ```
+2.  Navigate to the project directory:
+    ```bash
+    cd simo-search
+    ```
+3.  Install dependencies:
+    ```bash
+    npm install
+    ```
+
+## 🏃‍♂️ Running Locally
+
+To start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173` (or the port shown in your terminal).
+
+> **Note**: This project uses a Vite proxy to handle CORS requests to the SIMO API during development.
+
+## 🤖 Credits
+
+Developed in collaboration with **Antigravity**, an advanced AI coding assistant by **Google DeepMind**.
+
+## ⚠️ Disclaimer
+
+This is an unofficial viewer and is not affiliated with, endorsed by, or connected to the CNSC (Comisión Nacional del Servicio Civil) or the SIMO platform. It is intended for educational and personal use only.
+
+Made with love in Bogotá, Colombia.
