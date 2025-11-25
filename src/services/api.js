@@ -50,7 +50,7 @@ export const getDepartments = () => fetchList('/departamento/');
 
 export const getMunicipalities = () => fetchList('/municipio/');
 
-export const getLevels = () => fetchList('/gradosNivel/list/');
+export const getLevels = () => fetchList('/niveles/list/');
 
 export const getSalaryRanges = () => fetchList('/empleos/rangos/');
 

@@ -54,8 +54,7 @@ function App() {
           getDisabilities(),
         ]);
 
-        console.log('Municipalities loaded:', municipalities);
-        console.log('Departments loaded:', departments);
+        console.log('levels loaded:', levels);
 
         setLists({
           departments,

@@ -36,7 +36,7 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
-      '/gradosNivel': {
+      '/niveles': {
         target: 'https://simo.cnsc.gov.co',
         changeOrigin: true,
         secure: false,

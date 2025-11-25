@@ -160,7 +160,7 @@ const Filters = ({ onSearch, lists }) => {
                     <option value="">Todos</option>
                     {lists.salaryRanges.map((range) => (
                         <option key={range.id} value={range.id}>
-                            {range.nombre}
+                            {range.limiteInferiorLimiteSuperior}
                         </option>
                     ))}
                 </select>
@@ -177,7 +177,7 @@ const Filters = ({ onSearch, lists }) => {
                     <option value="">Todas</option>
                     {lists.disabilities.map((disc) => (
                         <option key={disc.id} value={disc.id}>
-                            {disc.nombre}
+                            {disc.descripcion}
                         </option>
                     ))}
                 </select>
