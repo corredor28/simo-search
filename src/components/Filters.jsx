@@ -1,21 +1,79 @@
 import React, { useState, useEffect } from 'react';
-import { getDepartments, getProcessTypes } from '../services/api';
+import {
+    getDepartments,
+    getProcessTypes,
+    getConvocatorias,
+    getEntidades,
+    getMunicipalities,
+    getLevels,
+    getSalaryRanges,
+    getDisabilities,
+} from '../services/api';
 
 const Filters = ({ onSearch }) => {
     const [filters, setFilters] = useState({
         palabraClave: '',
-        tipoProceso: 'CONCURSO_ABIERTO',
+        tipoProceso: '',
+        convocatoria: '',
+        entidad: '',
         departamento: '',
         municipio: '',
+        nivel: '',
+        salario: '',
+        discapacidad: '',
         numeroOPEC: '',
     });
 
-    const [departments, setDepartments] = useState([]);
-    const [processTypes, setProcessTypes] = useState([]);
+    const [lists, setLists] = useState({
+        departments: [],
+        processTypes: [],
+        convocatorias: [],
+        entidades: [],
+        municipalities: [],
+        levels: [],
+        salaryRanges: [],
+        disabilities: [],
+    });
 
     useEffect(() => {
-        setDepartments(getDepartments());
-        setProcessTypes(getProcessTypes());
+        const fetchData = async () => {
+            try {
+                const [
+                    departments,
+                    processTypes,
+                    convocatorias,
+                    entidades,
+                    municipalities,
+                    levels,
+                    salaryRanges,
+                    disabilities,
+                ] = await Promise.all([
+                    getDepartments(),
+                    getProcessTypes(),
+                    getConvocatorias(),
+                    getEntidades(),
+                    getMunicipalities(),
+                    getLevels(),
+                    getSalaryRanges(),
+                    getDisabilities(),
+                ]);
+
+                setLists({
+                    departments,
+                    processTypes,
+                    convocatorias,
+                    entidades,
+                    municipalities,
+                    levels,
+                    salaryRanges,
+                    disabilities,
+                });
+            } catch (error) {
+                console.error('Error loading filter lists:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     const handleChange = (e) => {
@@ -30,6 +88,16 @@ const Filters = ({ onSearch }) => {
         e.preventDefault();
         onSearch(filters);
     };
+
+    // Filter municipalities based on selected department if possible
+    const filteredMunicipalities = filters.departamento
+        ? lists.municipalities.filter((m) => m.departamento?.id === filters.departamento || m.departamentoId === filters.departamento)
+        : lists.municipalities;
+
+    // If the API returns flat list without department relation, we might show all or empty.
+    // Assuming the API response for municipality has a department field based on previous JSON.
+    // In `response_ind.json`, municipality object has `departamento: { nombre: ... }`.
+    // The list endpoint likely returns similar objects.
 
     return (
         <form onSubmit={handleSubmit} className="filters-container">
@@ -53,9 +121,44 @@ const Filters = ({ onSearch }) => {
                     value={filters.tipoProceso}
                     onChange={handleChange}
                 >
-                    {processTypes.map((type) => (
+                    <option value="">Todos</option>
+                    {lists.processTypes.map((type) => (
                         <option key={type.id} value={type.id}>
                             {type.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="filter-group">
+                <label htmlFor="convocatoria">Convocatoria</label>
+                <select
+                    id="convocatoria"
+                    name="convocatoria"
+                    value={filters.convocatoria}
+                    onChange={handleChange}
+                >
+                    <option value="">Todas</option>
+                    {lists.convocatorias.map((conv) => (
+                        <option key={conv.id} value={conv.id}>
+                            {conv.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="filter-group">
+                <label htmlFor="entidad">Entidad</label>
+                <select
+                    id="entidad"
+                    name="entidad"
+                    value={filters.entidad}
+                    onChange={handleChange}
+                >
+                    <option value="">Todas</option>
+                    {lists.entidades.map((ent) => (
+                        <option key={ent.id} value={ent.id}>
+                            {ent.nombre}
                         </option>
                     ))}
                 </select>
@@ -70,7 +173,7 @@ const Filters = ({ onSearch }) => {
                     onChange={handleChange}
                 >
                     <option value="">Todos</option>
-                    {departments.map((dept) => (
+                    {lists.departments.map((dept) => (
                         <option key={dept.id} value={dept.id}>
                             {dept.nombre}
                         </option>
@@ -78,13 +181,74 @@ const Filters = ({ onSearch }) => {
                 </select>
             </div>
 
-            {/* Municipio would ideally be filtered by department, but for now we just show a placeholder or need a list */}
-            {/* Since we don't have a full list of municipalities, we'll leave it as a text input or disabled for now if no list */}
-            {/* Or better, let's make it a text input for now as the API might accept ID or name? The API expects ID usually. */}
-            {/* The prompt asked for "list", but without data it's hard. I'll stick to what I can do. */}
-            {/* Actually, I'll omit municipality list for now or just add a few common ones if I had them, but I don't. */}
-            {/* I'll add a text input for Municipality ID/Name if the user knows it, or just hide it if it's too complex without data. */}
-            {/* The user asked for "municipio: list". I'll add a dummy list or just a few. */}
+            <div className="filter-group">
+                <label htmlFor="municipio">Municipio</label>
+                <select
+                    id="municipio"
+                    name="municipio"
+                    value={filters.municipio}
+                    onChange={handleChange}
+                    disabled={!filters.departamento && filteredMunicipalities.length > 1000} // Opt: disable if too many
+                >
+                    <option value="">Todos</option>
+                    {filteredMunicipalities.map((muni) => (
+                        <option key={muni.id} value={muni.id}>
+                            {muni.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="filter-group">
+                <label htmlFor="nivel">Nivel</label>
+                <select
+                    id="nivel"
+                    name="nivel"
+                    value={filters.nivel}
+                    onChange={handleChange}
+                >
+                    <option value="">Todos</option>
+                    {lists.levels.map((lvl) => (
+                        <option key={lvl.id} value={lvl.id}>
+                            {lvl.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="filter-group">
+                <label htmlFor="salario">Rango Salarial</label>
+                <select
+                    id="salario"
+                    name="salario"
+                    value={filters.salario}
+                    onChange={handleChange}
+                >
+                    <option value="">Todos</option>
+                    {lists.salaryRanges.map((range) => (
+                        <option key={range.id} value={range.id}>
+                            {range.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
+
+            <div className="filter-group">
+                <label htmlFor="discapacidad">Discapacidad</label>
+                <select
+                    id="discapacidad"
+                    name="discapacidad"
+                    value={filters.discapacidad}
+                    onChange={handleChange}
+                >
+                    <option value="">Todas</option>
+                    {lists.disabilities.map((disc) => (
+                        <option key={disc.id} value={disc.id}>
+                            {disc.nombre}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             <div className="filter-group">
                 <label htmlFor="numeroOPEC">Número OPEC</label>

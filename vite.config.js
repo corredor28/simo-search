@@ -11,6 +11,41 @@ export default defineConfig({
         changeOrigin: true,
         secure: false,
       },
+      '/tipoprocesoseleccion': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/convocatorias': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/entidades': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/departamento': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/municipio': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/gradosNivel': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
+      '/tipodiscapacidad': {
+        target: 'https://simo.cnsc.gov.co',
+        changeOrigin: true,
+        secure: false,
+      },
     },
   },
 })
