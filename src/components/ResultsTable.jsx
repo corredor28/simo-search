@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 const ResultsTable = ({ data, filters, lists }) => {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+    const [expandedRow, setExpandedRow] = useState(null);
 
     if (!data || data.length === 0) {
         return <div className="no-results">No se encontraron resultados.</div>;
@@ -60,6 +61,14 @@ const ResultsTable = ({ data, filters, lists }) => {
         setSortConfig({ key, direction });
     };
 
+    const toggleRow = (id) => {
+        if (expandedRow === id) {
+            setExpandedRow(null);
+        } else {
+            setExpandedRow(id);
+        }
+    };
+
     return (
         <div className="table-container">
             <table>
@@ -69,12 +78,8 @@ const ResultsTable = ({ data, filters, lists }) => {
                         <th onClick={() => requestSort('empleo.asignacionSalarial')}>Salario</th>
                         <th onClick={() => requestSort('empleo.denominacion.nombre')}>Denominación</th>
                         <th onClick={() => requestSort('empleo.nivelNombre')}>Nivel</th>
-                        <th onClick={() => requestSort('empleo.descripcion')}>Descripción</th>
-                        <th onClick={() => requestSort('empleo.requisitosMinimos')}>Estudio</th>
-                        <th onClick={() => requestSort('empleo.requisitosMinimos')}>Experiencia</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
-                        <th onClick={() => requestSort('empleo.funciones')}>Funciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -85,26 +90,55 @@ const ResultsTable = ({ data, filters, lists }) => {
                         const dept = vacancy?.municipio?.departamento?.nombre || 'N/A';
                         const muni = vacancy?.municipio?.nombre || 'N/A';
                         const denom = emp.denominacion?.nombre || 'N/A';
+                        const isExpanded = expandedRow === item.id;
 
                         return (
-                            <tr key={item.id}>
-                                <td>{emp.id}</td>
-                                <td>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(emp.asignacionSalarial)}</td>
-                                <td>{denom}</td>
-                                <td>{item.nivelNombre}</td>
-                                <td className="description-cell" title={emp.descripcion}>{emp.descripcion}</td>
-                                <td className="description-cell" title={emp.requisitosMinimos?.map(r => r.estudio).join('\r\n')}>
-                                    {emp.requisitosMinimos?.map(r => r.estudio).join('\r\n')}
-                                </td>
-                                <td className="description-cell" title={emp.requisitosMinimos?.map(r => r.experiencia).join('\r\n')}>
-                                    {emp.requisitosMinimos?.map(r => r.experiencia).join('\r\n')}
-                                </td>
-                                <td>{dept}</td>
-                                <td>{muni}</td>
-                                <td className="description-cell" title={emp.funciones?.map(f => f.descripcion)[0]}>
-                                    {emp.funciones?.map(f => f.descripcion).join('\r\n')}
-                                </td>
-                            </tr>
+                            <React.Fragment key={item.id}>
+                                <tr onClick={() => toggleRow(item.id)} className={`clickable-row ${isExpanded ? 'expanded' : ''}`}>
+                                    <td>{emp.id}</td>
+                                    <td>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(emp.asignacionSalarial)}</td>
+                                    <td>{denom}</td>
+                                    <td>{item.nivelNombre}</td>
+                                    <td>{dept}</td>
+                                    <td>{muni}</td>
+                                </tr>
+                                {isExpanded && (
+                                    <tr className="expanded-row-content">
+                                        <td colSpan="6">
+                                            <div className="details-grid">
+                                                <div className="detail-item">
+                                                    <strong>Descripción:</strong>
+                                                    <p>{emp.descripcion}</p>
+                                                </div>
+                                                <div className="detail-item">
+                                                    <strong>Experiencia:</strong>
+                                                    <ul>
+                                                        {emp.requisitosMinimos?.map((r, idx) => (
+                                                            <li key={idx}>{r.experiencia}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                <div className="detail-item">
+                                                    <strong>Requisitos de Estudio:</strong>
+                                                    <ul>
+                                                        {emp.requisitosMinimos?.map((r, idx) => (
+                                                            <li key={idx}>{r.estudio}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                <div className="detail-item">
+                                                    <strong>Funciones:</strong>
+                                                    <ul>
+                                                        {emp.funciones?.map((f, idx) => (
+                                                            <li key={idx}>{f.descripcion}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )}
+                            </React.Fragment>
                         );
                     })}
                 </tbody>

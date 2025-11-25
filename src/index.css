@@ -226,3 +226,54 @@ tr:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+/* Expandable Rows */
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.clickable-row:hover {
+  background-color: #f1f5f9;
+}
+
+.clickable-row.expanded {
+  background-color: #eff6ff; /* Light blue background for active row */
+  border-left: 4px solid var(--primary-color);
+}
+
+.expanded-row-content {
+  background-color: #f8fafc;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 1.5rem;
+}
+
+.detail-item strong {
+  display: block;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+.detail-item p {
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.detail-item ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: var(--text-primary);
+}
+
+.detail-item li {
+  margin-bottom: 0.25rem;
+}
