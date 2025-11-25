@@ -1,16 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import {
-    getDepartments,
-    getProcessTypes,
-    getConvocatorias,
-    getEntidades,
-    getMunicipalities,
-    getLevels,
-    getSalaryRanges,
-    getDisabilities,
-} from '../services/api';
+import React, { useState } from 'react';
 
-const Filters = ({ onSearch }) => {
+const Filters = ({ onSearch, lists }) => {
     const [filters, setFilters] = useState({
         palabraClave: '',
         tipoProceso: '',
@@ -23,58 +13,6 @@ const Filters = ({ onSearch }) => {
         discapacidad: '',
         numeroOPEC: '',
     });
-
-    const [lists, setLists] = useState({
-        departments: [],
-        processTypes: [],
-        convocatorias: [],
-        entidades: [],
-        municipalities: [],
-        levels: [],
-        salaryRanges: [],
-        disabilities: [],
-    });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [
-                    departments,
-                    processTypes,
-                    convocatorias,
-                    entidades,
-                    municipalities,
-                    levels,
-                    salaryRanges,
-                    disabilities,
-                ] = await Promise.all([
-                    getDepartments(),
-                    getProcessTypes(),
-                    getConvocatorias(),
-                    getEntidades(),
-                    getMunicipalities(),
-                    getLevels(),
-                    getSalaryRanges(),
-                    getDisabilities(),
-                ]);
-
-                setLists({
-                    departments,
-                    processTypes,
-                    convocatorias,
-                    entidades,
-                    municipalities,
-                    levels,
-                    salaryRanges,
-                    disabilities,
-                });
-            } catch (error) {
-                console.error('Error loading filter lists:', error);
-            }
-        };
-
-        fetchData();
-    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -93,11 +31,6 @@ const Filters = ({ onSearch }) => {
     const filteredMunicipalities = filters.departamento
         ? lists.municipalities.filter((m) => m.departamento?.id === filters.departamento || m.departamentoId === filters.departamento)
         : lists.municipalities;
-
-    // If the API returns flat list without department relation, we might show all or empty.
-    // Assuming the API response for municipality has a department field based on previous JSON.
-    // In `response_ind.json`, municipality object has `departamento: { nombre: ... }`.
-    // The list endpoint likely returns similar objects.
 
     return (
         <form onSubmit={handleSubmit} className="filters-container">
@@ -188,7 +121,7 @@ const Filters = ({ onSearch }) => {
                     name="municipio"
                     value={filters.municipio}
                     onChange={handleChange}
-                    disabled={!filters.departamento && filteredMunicipalities.length > 1000} // Opt: disable if too many
+                    disabled={!filters.departamento && filteredMunicipalities.length > 1000}
                 >
                     <option value="">Todos</option>
                     {filteredMunicipalities.map((muni) => (

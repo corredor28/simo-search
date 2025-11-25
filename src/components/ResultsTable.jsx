@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
 
-const ResultsTable = ({ data }) => {
+const ResultsTable = ({ data, filters, lists }) => {
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
     if (!data || data.length === 0) {
         return <div className="no-results">No se encontraron resultados.</div>;
     }
+
+    // Helper to find the relevant vacancy
+    const getRelevantVacancy = (item) => {
+        const vacantes = item.empleo.vacantes || [];
+        if (vacantes.length === 0) return null;
+
+        // If municipality filter is active, find matching vacancy
+        if (filters.municipio) {
+            // filters.municipio is likely an ID (string or number)
+            // vacantes[i].municipio.id is likely a number
+            const match = vacantes.find(v => String(v.municipio.id) === String(filters.municipio));
+            if (match) return match;
+        }
+
+        // If department filter is active, find matching vacancy
+        if (filters.departamento) {
+            // We need to match department.
+            // filters.departamento is an ID.
+            // vacantes[i].municipio.departamento usually only has 'nombre' in the snippet.
+            // But let's check if we can match by name using the lists.
+            const deptInfo = lists.departments.find(d => String(d.id) === String(filters.departamento));
+            if (deptInfo) {
+                const match = vacantes.find(v => v.municipio.departamento.nombre === deptInfo.nombre);
+                if (match) return match;
+            }
+        }
+
+        // Default: return first vacancy if no specific filter match found (or no filter active)
+        return vacantes[0];
+    };
 
     const sortedData = [...data].sort((a, b) => {
         if (sortConfig.key) {
@@ -30,16 +60,6 @@ const ResultsTable = ({ data }) => {
         setSortConfig({ key, direction });
     };
 
-    // Helper to access nested properties like 'empleo.denominacion.nombre'
-    // The API response structure is: { id, empleo: { ... } }
-    // But the user asked for specific fields. Let's map them.
-    // The rows are "empleo".
-    // Wait, the response is an array of objects, each has "empleo".
-    // The user wants: id, asignacionSalarial, codigoEmpleo, denominacion, descripcion, identificador, municipio, departamento, nivelNombre, funciones_descripcion, estudio, experiencia
-
-    // We need to flatten the data for display or handle it in the row rendering.
-    // Let's assume 'data' passed here is the list of items from the API response (which are objects with 'empleo' property).
-
     return (
         <div className="table-container">
             <table>
@@ -53,15 +73,15 @@ const ResultsTable = ({ data }) => {
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
                         <th onClick={() => requestSort('empleo.descripcion')}>Descripción</th>
-                        {/* Add more columns as needed */}
                     </tr>
                 </thead>
                 <tbody>
                     {sortedData.map((item) => {
                         const emp = item.empleo;
-                        // Safe access for nested props
-                        const dept = emp.vacantes?.[0]?.municipio?.departamento?.nombre || 'N/A';
-                        const muni = emp.vacantes?.[0]?.municipio?.nombre || 'N/A';
+                        const vacancy = getRelevantVacancy(item);
+
+                        const dept = vacancy?.municipio?.departamento?.nombre || 'N/A';
+                        const muni = vacancy?.municipio?.nombre || 'N/A';
                         const denom = emp.denominacion?.nombre || 'N/A';
 
                         return (
