@@ -42,16 +42,16 @@ export const searchJobs = async (filters, page = 0, size = 1000) => {
 
 export const getProcessTypes = () => fetchList('/tipoprocesoseleccion/list');
 
-export const getConvocatorias = () => fetchList('/convocatorias/visiblesTipo/list/', { nombre: '*' });
+export const getConvocatorias = () => fetchList('/convocatorias/visiblesTipo/list', { nombre: '*' });
 
-export const getEntidades = () => fetchList('/entidades/opecVisible/list/');
+export const getEntidades = () => fetchList('/entidades/opecVisible/list');
 
-export const getDepartments = () => fetchList('/departamento/');
+export const getDepartments = () => fetchList('/departamento');
 
-export const getMunicipalities = () => fetchList('/municipio/');
+export const getMunicipalities = () => fetchList('/municipio');
 
-export const getLevels = () => fetchList('/niveles/list/');
+export const getLevels = () => fetchList('/niveles/list');
 
-export const getSalaryRanges = () => fetchList('/empleos/rangos/');
+export const getSalaryRanges = () => fetchList('/empleos/rangos');
 
-export const getDisabilities = () => fetchList('/tipodiscapacidad/list/');
+export const getDisabilities = () => fetchList('/tipodiscapacidad/list');
