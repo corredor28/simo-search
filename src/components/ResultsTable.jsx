@@ -69,9 +69,11 @@ const ResultsTable = ({ data, filters, lists }) => {
                         <th onClick={() => requestSort('empleo.asignacionSalarial')}>Salario</th>
                         <th onClick={() => requestSort('empleo.denominacion.nombre')}>Denominación</th>
                         <th onClick={() => requestSort('empleo.nivelNombre')}>Nivel</th>
+                        <th onClick={() => requestSort('empleo.descripcion')}>Descripción</th>
+                        <th onClick={() => requestSort('empleo.requisitosMinimos')}>Estudio</th>
+                        <th onClick={() => requestSort('empleo.requisitosMinimos')}>Experiencia</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
                         <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
-                        <th onClick={() => requestSort('empleo.descripcion')}>Descripción</th>
                         <th onClick={() => requestSort('empleo.funciones')}>Funciones</th>
                     </tr>
                 </thead>
@@ -90,9 +92,15 @@ const ResultsTable = ({ data, filters, lists }) => {
                                 <td>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(emp.asignacionSalarial)}</td>
                                 <td>{denom}</td>
                                 <td>{item.nivelNombre}</td>
+                                <td className="description-cell" title={emp.descripcion}>{emp.descripcion}</td>
+                                <td className="description-cell" title={emp.requisitosMinimos?.map(r => r.estudio).join('\r\n')}>
+                                    {emp.requisitosMinimos?.map(r => r.estudio).join('\r\n')}
+                                </td>
+                                <td className="description-cell" title={emp.requisitosMinimos?.map(r => r.experiencia).join('\r\n')}>
+                                    {emp.requisitosMinimos?.map(r => r.experiencia).join('\r\n')}
+                                </td>
                                 <td>{dept}</td>
                                 <td>{muni}</td>
-                                <td className="description-cell" title={emp.descripcion}>{emp.descripcion}</td>
                                 <td className="description-cell" title={emp.funciones?.map(f => f.descripcion)[0]}>
                                     {emp.funciones?.map(f => f.descripcion).join('\r\n')}
                                 </td>
