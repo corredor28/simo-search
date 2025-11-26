@@ -54,13 +54,13 @@ This is an unofficial viewer and is not affiliated with, endorsed by, or connect
 
 ## Deploy
 
-This project is configured for deployment on **Vercel**.
+This project is configured for deployment on **Netlify**.
 
 1. Push this code to a GitHub repository.
-2. Log in to [Vercel](https://vercel.com) and click "Add New Project".
-3. Import your GitHub repository.
-4. Vercel will automatically detect the Vite configuration. Click "Deploy".
+2. Log in to [Netlify](https://www.netlify.com/) and click "Add new site" -> "Import an existing project".
+3. Connect your GitHub repository.
+4. Netlify will automatically detect the build settings (`npm run build`, `dist`). Click "Deploy".
 
-The `vercel.json` file handles the proxying to the SIMO API, so no extra configuration is needed.
+The `netlify.toml` file handles the proxying to the SIMO API, so no extra configuration is needed.
 
 Made with love in Bogotá, Colombia.

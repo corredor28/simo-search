@@ -1,0 +1,60 @@
+[[redirects]]
+  from = "/empleos/*"
+  to = "https://simo.cnsc.gov.co/empleos/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/tipoprocesoseleccion/*"
+  to = "https://simo.cnsc.gov.co/tipoprocesoseleccion/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/convocatorias/*"
+  to = "https://simo.cnsc.gov.co/convocatorias/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/entidades/*"
+  to = "https://simo.cnsc.gov.co/entidades/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/departamento/*"
+  to = "https://simo.cnsc.gov.co/departamento/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/municipio/*"
+  to = "https://simo.cnsc.gov.co/municipio/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/niveles/*"
+  to = "https://simo.cnsc.gov.co/niveles/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/tipodiscapacidad/*"
+  to = "https://simo.cnsc.gov.co/tipodiscapacidad/:splat"
+  status = 200
+  force = true
+  headers = {Origin = "https://simo.cnsc.gov.co", Referer = "https://simo.cnsc.gov.co"}
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
