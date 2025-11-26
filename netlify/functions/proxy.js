@@ -6,11 +6,18 @@ exports.handler = async function (event, context) {
     if (!path) {
         return {
             statusCode: 400,
-            body: JSON.stringify({ error: 'Path parameter is missing' })
+            body: JSON.stringify({
+                error: 'Path parameter is missing',
+                params: event.queryStringParameters
+            })
         };
     }
 
-    const targetUrl = `https://simo.cnsc.gov.co${path}`;
+    // Remove trailing slash if present (Netlify redirects might add one with :splat)
+    const cleanPath = path.endsWith('/') && path.length > 1 ? path.slice(0, -1) : path;
+    const targetUrl = `https://simo.cnsc.gov.co${cleanPath}`;
+
+    console.log(`Proxying to: ${targetUrl}`);
 
     try {
         const response = await axios({
@@ -23,7 +30,7 @@ exports.handler = async function (event, context) {
                 'Origin': 'https://simo.cnsc.gov.co',
                 'Host': 'simo.cnsc.gov.co'
             },
-            params: event.queryStringParameters,
+            params: event.queryStringParameters, // Note: this includes 'path' which upstream ignores
             data: event.body
         });
 
@@ -31,7 +38,7 @@ exports.handler = async function (event, context) {
             statusCode: response.status,
             headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*' // Allow CORS for our app
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify(response.data)
         };
@@ -45,7 +52,11 @@ exports.handler = async function (event, context) {
         } else {
             return {
                 statusCode: 502,
-                body: JSON.stringify({ error: 'Bad Gateway', details: error.message })
+                body: JSON.stringify({
+                    error: 'Bad Gateway',
+                    details: error.message,
+                    target: targetUrl
+                })
             };
         }
     }
