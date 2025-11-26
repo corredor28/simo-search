@@ -78,10 +78,11 @@ const ResultsTable = ({ data, filters, lists }) => {
                         <th onClick={() => requestSort('empleo.asignacionSalarial')}>Salario</th>
                         <th onClick={() => requestSort('empleo.denominacion.nombre')}>Denominación</th>
                         <th onClick={() => requestSort('empleo.nivelNombre')}>Nivel</th>
-                        <th onClick={() => requestSort('empleo.vacantes[0].municipio.departamento.nombre')}>Departamento</th>
-                        <th onClick={() => requestSort('empleo.vacantes[0].municipio.nombre')}>Municipio</th>
                         <th onClick={() => requestSort('empleo.convocatoria.nombre')}>Convocatoria</th>
+                        <th onClick={() => requestSort('empleo.convocatoria.tipoProceso')}>Tipo de proceso</th>
                         <th onClick={() => requestSort('empleo.fechaInscripcion')}>Cierre de inscripciones</th>
+                        <th onClick={() => requestSort('empleo.vigenciaSalarial')}>Vigencia salarial</th>
+                        <th onClick={() => requestSort('empleo.totalVacantes')}>Total vacantes</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,10 +102,11 @@ const ResultsTable = ({ data, filters, lists }) => {
                                     <td>{new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(emp.asignacionSalarial)}</td>
                                     <td>{denom}</td>
                                     <td>{item.nivelNombre}</td>
-                                    <td>{dept}</td>
-                                    <td>{muni}</td>
                                     <td>{emp.convocatoria.nombre}</td>
+                                    <td>{emp.convocatoria.tipoProceso.replaceAll("_", " ")}</td>
                                     <td>{item.fechaInscripcion}</td>
+                                    <td>{emp.vigenciaSalarial}</td>
+                                    <td>{emp.vacantes.reduce((total, v) => total + v.disponible, 0)}</td>
                                 </tr>
                                 {isExpanded && (
                                     <tr className="expanded-row-content">
@@ -135,6 +137,14 @@ const ResultsTable = ({ data, filters, lists }) => {
                                                     <ul>
                                                         {emp.funciones?.map((f, idx) => (
                                                             <li key={idx}>{f.descripcion}</li>
+                                                        ))}
+                                                    </ul>
+                                                </div>
+                                                <div className="detail-item">
+                                                    <strong>Vacantes:</strong>
+                                                    <ul>
+                                                        {emp.vacantes?.map((f, idx) => (
+                                                            <li key={idx}><b>Dependencia:</b> {f.dependencia.nombre} <b>Municipio:</b> {f.municipio.nombre} <b>Departamento:</b> {f.municipio.departamento.nombre} <b>Total vacantes:</b> {f.disponible}</li>
                                                         ))}
                                                     </ul>
                                                 </div>
