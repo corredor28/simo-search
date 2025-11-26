@@ -2,35 +2,35 @@
     "rewrites": [
         {
             "source": "/empleos/:path*",
-            "destination": "https://simo.cnsc.gov.co/empleos/:path*"
+            "destination": "/api/proxy?path=/empleos/:path*"
         },
         {
             "source": "/tipoprocesoseleccion/:path*",
-            "destination": "https://simo.cnsc.gov.co/tipoprocesoseleccion/:path*"
+            "destination": "/api/proxy?path=/tipoprocesoseleccion/:path*"
         },
         {
             "source": "/convocatorias/:path*",
-            "destination": "https://simo.cnsc.gov.co/convocatorias/:path*"
+            "destination": "/api/proxy?path=/convocatorias/:path*"
         },
         {
             "source": "/entidades/:path*",
-            "destination": "https://simo.cnsc.gov.co/entidades/:path*"
+            "destination": "/api/proxy?path=/entidades/:path*"
         },
         {
             "source": "/departamento/:path*",
-            "destination": "https://simo.cnsc.gov.co/departamento/:path*"
+            "destination": "/api/proxy?path=/departamento/:path*"
         },
         {
             "source": "/municipio/:path*",
-            "destination": "https://simo.cnsc.gov.co/municipio/:path*"
+            "destination": "/api/proxy?path=/municipio/:path*"
         },
         {
             "source": "/niveles/:path*",
-            "destination": "https://simo.cnsc.gov.co/niveles/:path*"
+            "destination": "/api/proxy?path=/niveles/:path*"
         },
         {
             "source": "/tipodiscapacidad/:path*",
-            "destination": "https://simo.cnsc.gov.co/tipodiscapacidad/:path*"
+            "destination": "/api/proxy?path=/tipodiscapacidad/:path*"
         }
     ]
 }
