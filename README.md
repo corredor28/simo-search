@@ -43,6 +43,22 @@ The application will be available at `http://localhost:5173` (or the port shown 
 
 > **Note**: This project uses a Vite proxy to handle CORS requests to the SIMO API during development.
 
+## Building for Production
+
+To create an optimized production build:
+
+1.  Run the build command:
+    ```bash
+    npm run build
+    ```
+
+2.  Preview the production build locally:
+    ```bash
+    npm run preview
+    ```
+
+> **Note**: The Vite development proxy (`server.proxy`) is verified to work with `npm run dev`. For the production build, ensure you have a backend proxy or appropriate CORS configuration in place if moving to a live server.
+
 ## 🤖 Credits
 
 Developed in collaboration with **Antigravity**, an advanced AI coding assistant by **Google DeepMind**.
@@ -50,17 +66,5 @@ Developed in collaboration with **Antigravity**, an advanced AI coding assistant
 ## ⚠️ Disclaimer
 
 This is an unofficial viewer and is not affiliated with, endorsed by, or connected to the CNSC (Comisión Nacional del Servicio Civil) or the SIMO platform. It is intended for educational and personal use only.
-
-
-## Deploy
-
-This project is configured for deployment on **Netlify**.
-
-1. Push this code to a GitHub repository.
-2. Log in to [Netlify](https://www.netlify.com/) and click "Add new site" -> "Import an existing project".
-3. Connect your GitHub repository.
-4. Netlify will automatically detect the build settings (`npm run build`, `dist`). Click "Deploy".
-
-The `netlify.toml` file handles the proxying to the SIMO API, so no extra configuration is needed.
 
 Made with love in Bogotá, Colombia.
